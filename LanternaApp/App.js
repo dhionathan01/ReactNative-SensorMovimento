@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import imageOn from './assents/icons/eco-light.png';
 import imageOff from './assents/icons/eco-light-off.png';
@@ -7,10 +7,13 @@ import imageDioOff from './assents/icons/logo-dio-white.png';
 
 
 const App = () => {
-  const toggle = false; //false
+  const [toggle, setToggle] = useState(false); //false
+  const mudandoEstadoDaTela = () => setToggle((oldToggle) => !oldToggle); {
+
+  }
   return (
     <View style={toggle ? style.containerLight : style.container}>
-      <TouchableOpacity onPress={()=> {}}>
+      <TouchableOpacity onPress={mudandoEstadoDaTela}>
         <Image
           style={toggle ? style.lightingOn : style.lightingOff}
           source={toggle ? imageOn : imageOff}>
