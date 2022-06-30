@@ -1,14 +1,30 @@
-import React, {useState} from "react";
-import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, {useState, useEffect} from "react";
+import { View, StyleSheet, Image, TouchableOpacity, } from 'react-native';
+import Torch from "react-native-torch";
+import RNShake from 'react-native-shake';
+
 import imageOn from './assents/icons/eco-light.png';
 import imageOff from './assents/icons/eco-light-off.png';
 import imageDioOn from './assents/icons/logo-dio.png';
 import imageDioOff from './assents/icons/logo-dio-white.png';
 
-
 const App = () => {
   const [toggle, setToggle] = useState(false); //false
   const mudandoEstadoDaTela = () => setToggle((oldToggle) => !oldToggle); {
+  
+    useEffect(() => {
+      // Liga flash do celular
+      Torch.switchState(toggle);
+    }, [toggle]);
+    
+    useEffect(() => {
+      // Quando balançar o telefone sera efetuado o toggle
+      const subscription = RNShake.addListener(() => { 
+        setToggle((oldToggle) => !oldToggle);
+      });
+      // Essa função vai ser chamada qunado o componente for desmontando
+      return () => subscription.remove();
+    });
 
   }
   return (
